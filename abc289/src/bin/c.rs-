@@ -1,0 +1,29 @@
+use proconio::input;
+
+fn main() {
+    input! {
+        max: u64,
+        num_sets: usize,
+    };
+    let mut sets = Vec::new();
+    for _ in 0..num_sets {
+        input! {
+            c: usize,
+            set: [u64;c],
+        };
+        sets.push(set.to_owned());
+    }
+    let mut sum = 0;
+    for flag in 0..(1 << num_sets) {
+        let mut selected: Vec<u64> = Vec::new();
+        for (i, s) in sets.iter().enumerate() {
+            if (flag >> i) & 1 == 1 {
+                selected.extend(s.iter());
+            }
+        }
+        if selected.len() == max as usize {
+            sum += 1;
+        }
+    }
+    println!("{}", sum);
+}
