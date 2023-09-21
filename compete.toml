@@ -38,13 +38,26 @@ edition = "2018"
 # `profile` for `Cargo.toml`.
 #
 # By setting this, you can run tests with `opt-level=3` while enabling `debug-assertions` and `overflow-checks`.
-profile = '''
-[dev]
-opt-level = 3
-'''
-
+#profile = '''
+#[dev]
+#opt-level = 3
+#'''
 dependencies = '''
 # 202301から:
+# ac-library-rs = "=0.1.1"
+ac-library-rs-parted             = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-convolution = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-dsu         = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-fenwicktree = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-lazysegtree = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-math        = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-maxflow     = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-mincostflow = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-modint      = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-scc         = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-segtree     = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-string      = { git = "https://github.com/qryxip/ac-library-rs-parted" }
+ac-library-rs-parted-twosat      = { git = "https://github.com/qryxip/ac-library-rs-parted" }
 once_cell = "=1.18.0"
 static_assertions = "=1.1.0"
 varisat = "=0.2.2"
@@ -68,7 +81,6 @@ glidesort = "=0.1.2"
 tap = "=1.0.1"
 omniswap = "=0.1.0"
 multiversion = "=0.7.2"
-
 # 202004から続投:
 num = "=0.4.1"
 num-bigint = "=0.4.3"
@@ -160,26 +172,13 @@ path = "./{{ contest }}"
 
 [test]
 # Toolchain for the test. (optional)
-toolchain = ""
-#toolchain = "1.42.0"
+toolchain = "1.70.0-x86_64-apple-darwin"
 # Profile for `cargo build`. ("dev" | "release")
 #
 # Defaults to `"dev"`.
 #profile = "dev"
 
-# [submit]
-# kind = "file"
-# path = "{{ src_path }}"
-# language_id = "5054"
-# #[submit]
-# #kind = "command"
-# #args = ["cargo", "+1.70.0", "equip", "--exclude-atcoder-202301-crates", "--remove", "docs", "--minify", "libs", "--bin", "{{ bin_name }}"]
-# #language_id = "5054"
 [submit]
-kind = "file"
-path = "{{ src_path }}"
+kind = "command"
+args = ["cargo", "+1.70.0", "equip", "--exclude-atcoder-202301-crates", "--remove", "docs", "--minify", "libs", "--bin", "{{ bin_name }}"]
 language_id = "5054"
-#[submit]
-#kind = "command"
-#args = ["cargo", "+1.70.0", "equip", "--exclude-atcoder-202301-crates", "--remove", "docs", "--minify", "libs", "--bin", "{{ bin_name }}"]
-#language_id = "5054"
