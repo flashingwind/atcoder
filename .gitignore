@@ -1,4 +1,5 @@
 target/
+testcases/
 # Created by https://www.toptal.com/developers/gitignore/api/rust,macos,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=rust,macos,visualstudiocode
 
@@ -71,3 +72,4 @@ Cargo.lock
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/rust,macos,visualstudiocode
+
