@@ -1,4 +1,3 @@
-use itertools::Itertools;
 use proconio::input;
 
 fn main() {
@@ -16,19 +15,26 @@ fn main() {
     input! {
         x: usize,
     };
-    let mut cnt_min = usize::MAX;
-    let mut cnt_min_i = Vec::new();
-    for (_, bb) in b.iter().enumerate() {
-        if bb.contains(&x) && bb.len() < cnt_min {
-            cnt_min = bb.len();
+    let mut len_min = usize::MAX;
+    for bb in b.iter() {
+        if bb.len() < len_min && bb.contains(&x) {
+            len_min = bb.len();
         }
     }
+    let mut len_min_i = Vec::new();
     for (i, bb) in b.iter().enumerate() {
-        if bb.contains(&x) && bb.len() == cnt_min {
-            cnt_min_i.push(i + 1);
+        if bb.len() == len_min && bb.contains(&x) {
+            len_min_i.push(i + 1);
         }
     }
-    cnt_min_i.sort();
-    println!("{}", cnt_min_i.len());
-    println!("{}", cnt_min_i.iter().join(" "));
+    len_min_i.sort();
+    println!("{}", len_min_i.len());
+    println!(
+        "{}",
+        len_min_i
+            .iter()
+            .map(|v| v.to_string())
+            .collect::<Vec<_>>()
+            .join(" ")
+    );
 }
