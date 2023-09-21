@@ -1,0 +1,32 @@
+use proconio::input;
+
+fn main() {
+    input! {
+        mut n: u128,
+    };
+    let mut sum = 0;
+    let mut t = 0;
+    let mut divisor = 1u128;
+    while 999 < n {
+        //数値1個あたりのコンマの数
+        let num_commas = ((n * divisor) as f64).log10().floor() as u128;
+        let mut diff = n * divisor;
+        print!("t={t} n={n} divisor={divisor} diff={diff}-");
+        n /= 1000;
+        t += 1;
+        divisor *= 1000;
+        diff -= n * divisor;
+        println!("{} = {}", n * divisor, diff + 1);
+        sum += (diff + 1) * num_commas;
+    }
+    n *= divisor;
+    while 999 < n {
+        let diff = n - divisor;
+        divisor /= 1000u128;
+        let num_commas = ((n * divisor) as f64).log10().floor() as u128;
+        sum += diff * num_commas;
+        println!(" t={t} n={n} divisor={divisor} diff={diff}");
+        n -= divisor
+    }
+    println!("{}", sum);
+}

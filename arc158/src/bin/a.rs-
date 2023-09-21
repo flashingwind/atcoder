@@ -1,0 +1,36 @@
+use proconio::input;
+
+fn main() {
+    input! {
+        n: usize,
+    };
+    for _ in 0..n {
+        input! {
+            mut x: [u32;3],
+        };
+        println!("{}", solv(x));
+    }
+}
+
+fn solv(x: Vec<u32>) -> i64 {
+    return solv_rec(x, 0, 1, 2, 0);
+}
+
+fn solv_rec(x: Vec<u32>, i: usize, j: usize, k: usize, t: i64) -> i64 {
+    if x[0] == x[1] && x[1] == x[2] {
+        return t;
+    } else if t == 1000000 {
+        return -1;
+    }
+    x[i]+=3
+    let mut x2 = x.to_owned();
+    x2.sort();
+    for i in 0..3 {
+        for j in 0..3 {
+            for k in 0..3 {
+                return solv_rec(x2, i, j, k, t + 1);
+            }
+        }
+    }
+    return -1;
+}

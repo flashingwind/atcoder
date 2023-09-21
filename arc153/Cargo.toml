@@ -1,0 +1,41 @@
+[package]
+name = "arc153"
+version = "0.1.0"
+edition = "2018"
+
+[package.metadata.cargo-compete.bin]
+arc153-a = { alias = "a", problem = "https://atcoder.jp/contests/arc153/tasks/arc153_a" }
+arc153-b = { alias = "b", problem = "https://atcoder.jp/contests/arc153/tasks/arc153_b" }
+arc153-c = { alias = "c", problem = "https://atcoder.jp/contests/arc153/tasks/arc153_c" }
+arc153-d = { alias = "d", problem = "https://atcoder.jp/contests/arc153/tasks/arc153_d" }
+arc153-e = { alias = "e", problem = "https://atcoder.jp/contests/arc153/tasks/arc153_e" }
+arc153-f = { alias = "f", problem = "https://atcoder.jp/contests/arc153/tasks/arc153_f" }
+
+[[bin]]
+name = "arc153-a"
+path = "src/bin/a.rs"
+
+[[bin]]
+name = "arc153-b"
+path = "src/bin/b.rs"
+
+[[bin]]
+name = "arc153-c"
+path = "src/bin/c.rs"
+
+[[bin]]
+name = "arc153-d"
+path = "src/bin/d.rs"
+
+[[bin]]
+name = "arc153-e"
+path = "src/bin/e.rs"
+
+[[bin]]
+name = "arc153-f"
+path = "src/bin/f.rs"
+
+[dependencies]
+proconio = { version = "=0.3.6", features = ["derive"] }
+
+[dev-dependencies]

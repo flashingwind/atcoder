@@ -1,0 +1,68 @@
+use proconio::input;
+
+/// 等比数列の和の公式から導くらしいよ。後ろはaとbに対して対称
+/// a^5-b^5=(a-b)(a^4+a^3b+a^2b^2+ab^3+b^4)
+/// 前半をalpha x 後半をbetaとする
+
+#[inline(always)]
+
+fn f_alpha(a: i128, b: i128) -> i128 {
+    return a - b;
+}
+
+fn f_beta(a: i128, b: i128) -> i128 {
+    return a.pow(4) + a.pow(3) * b + a.pow(2) * b.pow(2) + a * b.pow(3) + b.pow(4);
+}
+
+fn is_divisible(
+    x: i128,
+    a_start: i128,
+    a_end: i128,
+    b_start: i128,
+    b_end: i128,
+) -> Option<(i128, i128)> {
+    for a_raw in a_start..a_end {
+        {
+            let a = a_raw;
+            let alpha = x - a.pow(5);
+            for b_raw in b_start..b_end {
+                if is_eq_b_pow_alpha(alpha, b_raw) {
+                    return Some((a, b_raw));
+                } else if is_eq_b_pow_alpha(alpha, -b_raw) {
+                    return Some((a, -b_raw));
+                }
+            }
+        }
+        {
+            let a = -a_raw;
+            let alpha = x - a.pow(5);
+            for b_raw in b_start..b_end {
+                if is_eq_b_pow_alpha(alpha, b_raw) {
+                    return Some((a, b_raw));
+                } else if is_eq_b_pow_alpha(alpha, -b_raw) {
+                    return Some((a, -b_raw));
+                }
+            }
+        }
+    }
+    None
+}
+
+fn main() {
+    input! {
+        x: i128,
+    };
+    for d in (0..=10i128.pow(9)).step_by(10) {
+        if let Some((a_ans, b_ans)) = is_divisible(x, d, d + 10, d, d + 10) {
+            println!("{} {}", a_ans, b_ans);
+            return;
+        } else if let Some((a_ans, b_ans)) = is_divisible(x, d, d + 10, 0, 10) {
+            println!("{} {}", a_ans, b_ans);
+            return;
+        } else if let Some((a_ans, b_ans)) = is_divisible(x, 0, 10, d, d + 10) {
+            println!("{} {}", a_ans, b_ans);
+            return;
+        }
+    }
+    println!("{} {}", 0, 0);
+}
