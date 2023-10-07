@@ -1,0 +1,37 @@
+---
+type: Batch
+timelimit: 2s
+match: Lines
+
+cases:
+  - name: sample1
+    in: |
+      SAINT HELENA
+    out: |
+      YES
+  - name: sample2
+    in: |
+      SOUND HOUND
+    out: |
+      YES
+  - name: sample3
+    in: |
+      SOUND SPIDER
+    out: |
+      NO
+  - name: sample4
+    in: |
+      S H
+    out: |
+      YES
+  - name: sample5
+    in: |
+      X Y
+    out: |
+      NO
+
+extend:
+  - type: Text
+    path: "./a"
+    in: /in/*.txt
+    out: /out/*.txt
