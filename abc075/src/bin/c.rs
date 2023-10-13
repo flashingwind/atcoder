@@ -1,41 +1,29 @@
 use petgraph::algo::connected_components;
-use petgraph::Graph;
+use petgraph::prelude::*;
 use proconio::input;
 use proconio::marker::Usize1;
-use rustc_hash::FxHashMap;
+
 fn main() {
-    let mut g = Graph::new_undirected();
     input! {
-        num_nodes: usize,
-        num_es: usize,
-        es: [(Usize1,Usize1);num_es],
+        n: usize,
+        len_es: usize,
+        es: [(Usize1,Usize1);len_es],
     };
-    let mut nodes = FxHashMap::default();
-    for i in 0..num_nodes {
-        // nodes.push(g.add_node(()));
-        nodes.insert(i, g.add_node(()));
-    }
-    let mut edges = FxHashMap::default();
-    for &(i, j) in es.iter() {
-        edges.entry((i, j)).or_insert(g.add_edge(
-            *nodes.get(&i).unwrap(),
-            *nodes.get(&j).unwrap(),
-            (),
-        ));
-        // println!("{:?}", g.edge_endpoints(*edges.entry((i, j)).or_default()));
-    }
-    // println!("{:?}", nodes);
+    let mut g = UnGraph::<(), (), usize>::from_edges(es);
     let mut cnt = 0;
-    for (&(i, j), e) in edges.iter_mut() {
-        let a = g.edge_endpoints(*e).unwrap().0;
-        let b = g.edge_endpoints(*e).unwrap().1;
-        g.remove_edge(*e);
+    let g2 = g.to_owned();
+    let edges = g2
+        .edge_indices()
+        .map(|v| (v, g.edge_endpoints(v).unwrap()))
+        .collect::<Vec<_>>();
+    for &(e, (a, b)) in edges.iter() {
         let cc = connected_components(&g);
-        if cc == 2 {
+        g.remove_edge(e);
+
+        if cc != connected_components(&g) {
             cnt += 1;
         }
-        *e = g.add_edge(a, b, ());
-        // println!("e: {}-{} {:?}-{:?} cc={cc}", i, j, a, b);
+        g = g2.to_owned();
     }
     println!("{cnt}");
 }
