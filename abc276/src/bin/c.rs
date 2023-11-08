@@ -1,4 +1,3 @@
-use itertools::Itertools;
 use proconio::input;
 
 fn main() {
@@ -6,29 +5,30 @@ fn main() {
         n: usize,
         p: [u32;n],
     };
-    let mut last_q = vec![0u32; n];
-    for t in 2..n {
-        let mut q = p.clone();
-        for pat in (n - t..n).permutations(t) {
-            println!("{}..{}: {:?}", n - t, n, pat);
-            let mut j = pat.len();
-            for &i in pat.iter() {
-                q[j] = p[i];
-                j += 1;
-            }
-            // println!("{t}: {}", q.iter().map(|v| v.to_string()).join(" "));
-            let mut is_ok = true;
-            for i in 0..n {
-                if q[i] != p[i] {
-                    is_ok = false;
-                    break;
-                }
-            }
-            if is_ok {
-                println!("OK: {}", last_q.iter().map(|v| v.to_string()).join(" "));
-                return;
-            }
-            last_q = q.clone();
+    //count
+    let mut perm_cnt = 0;
+    for i in 0..n {
+        for l in 1..p[i] {
+            perm_cnt += fact(p[i] - 1);
         }
+    }
+
+    perm_cnt -= 1;
+
+    //generate the pattern before
+    let mut s = vec![];
+    for i in 1..=n as u32 {
+        s.push((perm_cnt % i + 1).to_string());
+        perm_cnt /= i;
+    }
+    s.reverse();
+    println!("{}", s.join(" "));
+}
+
+fn fact(n: u32) -> u32 {
+    if n == 0 {
+        1
+    } else {
+        fact(n - 1) * n
     }
 }
