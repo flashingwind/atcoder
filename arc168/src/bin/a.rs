@@ -14,19 +14,21 @@ fn main() {
         println!("1");
         return;
     }
+    let d = i64::MAX / 250000;
     let mut ns = vec![0; n];
-    let mut cnt: BTreeMap<i32, i32> = BTreeMap::new();
+    let mut cnt: BTreeMap<i64, i64> = BTreeMap::new();
     ns[n - 1] = 0;
     cnt.insert(ns[n - 1], 1);
     let mut min = 0;
     let mut ans = 0;
-    let mut cache: std::collections::HashMap<i32, Option<i32>, _> = FxHashMap::default();
+    let mut cache: std::collections::HashMap<i64, Option<i64>, _> = FxHashMap::default();
     for i in (0..n - 1).rev() {
         if s[i] == '>' {
             ns[i] = ns[i + 1] + 1;
         } else {
-            min -= 1;
-            ns[i] = min;
+            // min -= 1;
+            // ns[i] = min;
+            ns[i] = ns[i + 1] - d;
             //ns[i] < ns[i + 1]
         }
         let mut tmpcnt = 0;
